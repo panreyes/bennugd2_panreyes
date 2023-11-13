@@ -2,7 +2,7 @@
 
 show_help() {
     echo "usage:"
-    echo "    $0 [windows|windows32|linux|linux32|switch] [debug] [clean] [packages] [use_sdl2|use_sdl2_gpu] [verbose] [static] [one-job]"
+    echo "    $0 [windows|windows32|linux|linux32|switch] [debug] [clean] [packages] [use_sdl2|use_sdl2_gpu] [verbose] [static] [one-job] [alpha_as_int]"
     exit 1
 }
 
@@ -105,6 +105,10 @@ do
             ONE_JOB=1
             ;;
 
+		alpha_as_int)
+			ALPHA_AS_INT=1
+			;;
+
         *)
             # unknown option
             show_help
@@ -130,6 +134,11 @@ else
     EXTRA_CFLAGS+=" -DUSE_SDL2_GPU=1"
     MISC_FLAGS+=" -DUSE_SDL2_GPU=1"
     export USE_SDL2_GPU
+fi
+
+if [ "$ALPHA_AS_INT" == "1" ]
+then
+    EXTRA_CFLAGS+=" -DALPHA_AS_INT=1"
 fi
 
 if [ "$STATIC_ENABLED" == "1" ]

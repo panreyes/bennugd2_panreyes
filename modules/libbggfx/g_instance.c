@@ -145,10 +145,24 @@ void draw_instance_at( INSTANCE * i, REGION * region, double x, double y, GRAPH 
     GRAPH * map;
     int64_t flags;
     BGD_Rect *map_clip = NULL, _map_clip;
-    uint8_t alpha, color_r, color_g, color_b;
+#ifdef ALPHA_AS_INT
+    int64_t alpha;
+#else
+	uint8_t alpha;
+#endif
+	uint8_t color_r, color_g, color_b;
     double scalex, scaley, centerx, centery;
 
-    alpha = LOCBYTE( libbggfx, i, ALPHA );
+#ifdef ALPHA_AS_INT
+    alpha = LOCINT64( libbggfx, i, ALPHA );
+	if (alpha < 0) {
+		alpha = 0;
+	} else if (alpha > 255) {
+		alpha = 255;
+	}
+#else
+	alpha = LOCBYTE( libbggfx, i, ALPHA );
+#endif
 
     if ( !( map = instance_graph( i ) ) ) return;
 
@@ -188,7 +202,11 @@ void draw_instance_at( INSTANCE * i, REGION * region, double x, double y, GRAPH 
                 centery,
                 map,
                 map_clip,
-                alpha,
+#ifdef ALPHA_AS_INT
+                (uint8_t) alpha,
+#else
+				alpha,
+#endif
                 color_r,
                 color_g,
                 color_b,
@@ -204,12 +222,26 @@ void draw_instance( void * what, REGION * clip ) {
     INSTANCE * i = ( void * ) what;
     GRAPH * map, * map_dst = NULL;
     BGD_Rect *map_clip = NULL, _map_clip;
-    uint8_t alpha, color_r, color_g, color_b;
+#ifdef ALPHA_AS_INT
+    int64_t alpha;
+#else
+	uint8_t alpha;
+#endif
+	uint8_t color_r, color_g, color_b;
     double scalex, scaley, x, y, centerx, centery;
     int64_t flags, r, c;
     REGION region;
 
-    alpha = LOCBYTE( libbggfx, i, ALPHA );
+#ifdef ALPHA_AS_INT
+    alpha = LOCINT64( libbggfx, i, ALPHA );
+	if (alpha < 0) {
+		alpha = 0;
+	} else if (alpha > 255) {
+		alpha = 255;
+	}
+#else
+	alpha = LOCBYTE( libbggfx, i, ALPHA );
+#endif
 
 //    if ( !( map = ( GRAPH * ) ( intptr_t ) LOCQWORD( libbggfx, i, GRAPHPTR ) ) ) return;
     if ( !( map = instance_graph( i ) ) ) return;
@@ -273,7 +305,11 @@ void draw_instance( void * what, REGION * clip ) {
                 centery,
                 map,
                 map_clip,
-                alpha,
+#ifdef ALPHA_AS_INT
+                (uint8_t) alpha,
+#else
+				alpha,
+#endif
                 color_r,
                 color_g,
                 color_b,

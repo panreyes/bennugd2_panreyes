@@ -366,7 +366,12 @@ char * __bgdexport( libbggfx, locals_def ) =
     "G_RECT clip = 0, 0, 0, 0;\n"
     "G_POINTD center = POINT_UNDEFINED, POINT_UNDEFINED;\n"
 
-    "BYTE alpha=255;\n"
+#ifdef ALPHA_AS_INT
+    "INT alpha=255;\n"
+#else
+	"BYTE alpha=255;\n"
+#endif
+	
     "BYTE color_r=255;\n"
     "BYTE color_g=255;\n"
     "BYTE color_b=255;\n"
