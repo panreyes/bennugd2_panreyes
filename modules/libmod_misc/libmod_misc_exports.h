@@ -161,6 +161,9 @@ DLSYSFUNCS  __bgdexport( libmod_misc, functions_exports)[] =
     FUNC( "DIROPEN"         , "S"       , TYPE_INT          , libmod_misc_dir_open               ),
     FUNC( "DIRCLOSE"        , "I"       , TYPE_INT          , libmod_misc_dir_close              ),
     FUNC( "DIRREAD"         , "I"       , TYPE_STRING       , libmod_misc_dir_read               ),
+	
+    FUNC( "GET_BASE_PATH"   , ""        , TYPE_STRING       , libmod_misc_dir_get_basepath       ),
+    FUNC( "GET_PREF_PATH"   , "SS"      , TYPE_STRING       , libmod_misc_dir_get_prefpath       ),
 
     /* Files */
     FUNC( "SAVE"            , "SV++"    , TYPE_INT          , libmod_misc_file_save              ),

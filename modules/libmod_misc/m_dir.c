@@ -32,6 +32,8 @@
 #include <time.h>
 #include <ctype.h>
 
+#include <SDL.h>
+
 #include "dirs.h"
 
 /* WIN32 INCLUDES */
@@ -214,5 +216,40 @@ int64_t libmod_misc_dir_close( INSTANCE * my, int64_t * params ) {
 int64_t libmod_misc_dir_read( INSTANCE * my, int64_t * params ) {
     return ( __moddir_read((__DIR_ST *) ( intptr_t ) params[ 0 ] ) ) ;
 }
+
+/* string 
+*/
+
+int64_t libmod_misc_dir_get_basepath(INSTANCE *my, int64_t *params) {
+    int64_t code;
+    char *path = SDL_GetBasePath();
+    if(! path) {
+        code = string_new("");
+    } else {
+        code = string_new(path);
+        SDL_free(path);
+    }
+    string_use(code);
+
+    return code;
+}
+
+int64_t libmod_misc_dir_get_prefpath(INSTANCE *my, int64_t *params) {
+    int64_t code;
+    char *path = SDL_GetPrefPath(string_get(params[0]), string_get(params[1]));
+    if(! path) {
+        code = string_new("");
+    } else {
+        code = string_new(path);
+        SDL_free(path);
+    }
+    string_use(code);
+
+    string_discard(params[0]);
+    string_discard(params[1]);
+
+    return code;
+}
+
 
 /* ----------------------------------------------------------------- */
