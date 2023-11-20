@@ -1090,6 +1090,27 @@ static int64_t libmod_sound_play_music( INSTANCE * my, int64_t * params ) {
 
 /* --------------------------------------------------------------------------- */
 /*
+ *  FUNCTION : libmod_sound_play_music_looped
+ *
+ *  Play a MOD looped
+ *
+ *  PARAMS:
+ *      mod id;
+ *
+ *  RETURN VALUE:
+ *
+ *  -1 if there is any error
+ *  0 if all goes ok
+ *
+ */
+
+static int64_t libmod_sound_play_music_looped( INSTANCE * my, int64_t * params ) {
+    if ( params[0] == -1LL ) return -1; // check for !params[0] in internal function
+    return( play_music( params[0], -1 ) );
+}
+
+/* --------------------------------------------------------------------------- */
+/*
  *  FUNCTION : libmod_sound_unload_music
  *
  *  Frees the resources from a MOD and unloads it
@@ -1431,6 +1452,27 @@ static int64_t libmod_sound_bgload_sound( INSTANCE * my, int64_t * params ) {
 static int64_t libmod_sound_play_sound( INSTANCE * my, int64_t * params ) {
     if ( params[0] == -1LL ) return -1; // check for !params[0] in internal function
     return( play_sound( params[0], params[1], -1 ) );
+}
+
+/* --------------------------------------------------------------------------- */
+/*
+ *  FUNCTION : libmod_sound_play_sound_once
+ *
+ *  Play a WAV once
+ *
+ *  PARAMS:
+ *      wav id;
+  *
+ *  RETURN VALUE:
+ *
+ *  -1 if there is any error
+ *  0 if all goes ok
+ *
+ */
+
+static int64_t libmod_sound_play_sound_once( INSTANCE * my, int64_t * params ) {
+    if ( params[0] == -1LL ) return -1; // check for !params[0] in internal function
+    return( play_sound( params[0], 0, -1 ) );
 }
 
 /* --------------------------------------------------------------------------- */

@@ -58,7 +58,7 @@ DLCONSTANT  __bgdexport( libmod_sound, constants_def )[] = {
 
 char * __bgdexport( libmod_sound, globals_def ) =
     "STRUCT sound\n"
-    "   INT sound_freq=22050;\n"
+    "   INT sound_freq=44100;\n"
     "   INT sound_mode=MODE_STEREO;\n"
     "   INT sound_channels=8;\n"
     "END\n"
@@ -78,6 +78,7 @@ DLSYSFUNCS  __bgdexport( libmod_sound, functions_exports )[] = {
     FUNC( "MUSIC_UNLOAD"            , "P"    , TYPE_INT , libmod_sound_unload_music2        ),
 
     FUNC( "MUSIC_PLAY"              , "II"   , TYPE_INT , libmod_sound_play_music           ),
+	FUNC( "MUSIC_PLAY"              , "I"    , TYPE_INT , libmod_sound_play_music_looped    ),
     FUNC( "MUSIC_STOP"              , ""     , TYPE_INT , libmod_sound_stop_music           ),
     FUNC( "MUSIC_PAUSE"             , ""     , TYPE_INT , libmod_sound_pause_music          ),
     FUNC( "MUSIC_RESUME"            , ""     , TYPE_INT , libmod_sound_resume_music         ),
@@ -99,6 +100,7 @@ DLSYSFUNCS  __bgdexport( libmod_sound, functions_exports )[] = {
     FUNC( "SOUND_UNLOAD"            , "I"    , TYPE_INT , libmod_sound_unload_sound         ),
     FUNC( "SOUND_UNLOAD"            , "P"    , TYPE_INT , libmod_sound_unload_sound2        ),
     FUNC( "SOUND_PLAY"              , "II"   , TYPE_INT , libmod_sound_play_sound           ),
+	FUNC( "SOUND_PLAY"              , "I"    , TYPE_INT , libmod_sound_play_sound_once      ),
     FUNC( "SOUND_PLAY"              , "III"  , TYPE_INT , libmod_sound_play_sound_channel   ),
     FUNC( "SOUND_PLAY"              , "IIII" , TYPE_INT , libmod_sound_play_sound_timed     ),
     FUNC( "SOUND_STOP"              , "I"    , TYPE_INT , libmod_sound_stop_sound           ),
